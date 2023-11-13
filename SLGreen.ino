@@ -17,6 +17,7 @@
 //----- CONFIGURATION -----//
 #define SERIAL_SPEED  115200 //Recommended values : 115200, 150000, 250000, 500000, 1000000, 2000000
 #define MCP_FREQUENCY MCP_8MHZ //Available values : MCP_8MHZ, MCP_16MHZ, MCP_20MHZ
+#DEFAULT_CAN_SPEED CAN_500KBPS; //Available values : CAN_10KBPS, CAN_20KBPS, CAN_50KBPS, CAN_100KBPS, CAN_125KBPS, CAN_250KBPS, CAN_500KBPS, CAN_1000KBPS
 //----------//
 
 //Don't forget to search on mcp2515 library sources to understand how functions works

@@ -23,6 +23,8 @@
 
 //Don't forget to search in mcp_can library sources to understand how functions works
 #include <SPI.h>
+
+#define DEBUG_MODE 0
 #include "mcp_can.h"//MCP2515 library
 
 MCP_CAN CAN(MCP_CS); // Set CS pin

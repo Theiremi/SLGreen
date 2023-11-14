@@ -121,6 +121,8 @@ SLGreen implements the SLCAN (Lawicel) protocol to allow interactive communicati
 
 A lot of features are yet to be integrated into this project, so any help doing this will be greatly appreciated !
 
+The code also hasn't been heavily tested, so **if you encounter issues, please report them** !
+
 If you wish to contribute, please fork the repository, create a new branch for your changes, and submit a pull request for review.
 
 ### License

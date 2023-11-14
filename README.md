@@ -63,6 +63,31 @@ Several configuration options are available at the top of the SLGreen.ino file. 
 - **`DEFAULT_CAN_SPEED`**: Sets the default speed for the CAN bus, in case the computer doesn't choose one
 
 
+# Usage with Linux
+First of all, you need the `can-utils` package
+
+```
+$ sudo apt install can-utils
+```
+
+Then, use the commands below to start the slcan daemon
+```
+sudo slcand -S 115200 -s 6 -o /dev/ttyUSB0 can0
+```
+- `-S` : Serial baud rate. Put the same value as `SERIAL_SPEED`
+- `-s` : CAN speed. Check the [Lawicel documentation](https://www.canusb.com/docs/can232_v3.pdf) to choose the speed you want
+- `-o` : Send an Open command (explained in Lawicel documentation)
+- `/dev/ttyUSB0` : Your Arduino serial port
+- `can0` : The name you want for your SocketCAN interface
+
+Finally, bring the interface up
+```
+$ sudo ip link set can0 up
+```
+
+You can now use your preferred tools to manipulate the CAN ! (candump, SavvyCAN...)
+
+
 ## SLCAN (Lawicel) Implementation
 SLGreen implements the SLCAN (Lawicel) protocol to allow interactive communication with the CAN bus via a serial port. To get more details about this protocol, [check this link](https://www.canusb.com/docs/can232_v3.pdf)
 

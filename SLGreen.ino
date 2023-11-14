@@ -27,17 +27,21 @@
 
 MCP_CAN CAN(MCP_CS); // Set CS pin
 
+uint8_t CAN_speed = CAN_500KBPS;
+uint8_t CAN_freq  = MCP_8MHZ;
 void setup() {
   Serial.begin(SERIAL_SPEED);
+
+  if(CAN.begin(MCP_ANY, CAN_speed, CAN_freq) != CAN_OK) return slcanInvalidRX();
+  CAN.setMode(MCP_NORMAL);
 }
 
 
 uint8_t rx_buffer[16] = {0};
 uint8_t rx_buffer_len = 0;
 
-uint8_t CAN_speed = CAN_500KBPS;
-uint8_t CAN_freq  = MCP_8MHZ;
-bool CAN_active = false;
+
+bool CAN_active = true;
 
 void loop() {
   serialCheckRX();
@@ -212,9 +216,10 @@ void slcanInvalidRX()
   Serial.write(7);
 }
 
-void serialTX(uint8_t *buf, uint8_t len)
+void serialTX(bool ext, uint8_t *buf, uint8_t len)
 {
-  Serial.write('T');
+  if(ext) Serial.write('T');
+  else    Serial.write('t');
   for(int i = 0; i < len; i++)
   {
     Serial.write(buf[i]);
@@ -234,7 +239,7 @@ void canCheckRX()
     id = id & 0x1FFFFFFF;
     if(id <= 0x7FF) ext = false;
 
-    uint8_t frame[2+len*2+ext*5] = {0};
+    uint8_t frame[4+len*2+ext*5] = {0};
 
     if(!ext)
     {
@@ -264,7 +269,7 @@ void canCheckRX()
       frame[(4+ext*5)+i] = (i_bufpos % 2 == 1) ? int2asciiHex(cdata[i_bufpos / 2] >> 4) : int2asciiHex(cdata[i_bufpos / 2] & 0xF);
     }
 
-    serialTX(frame, 2+len*2+ext*5);
+    serialTX(ext, frame, 4+len*2+ext*5);
   }
 }
 

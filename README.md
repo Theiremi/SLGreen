@@ -70,9 +70,9 @@ First of all, you need the `can-utils` package
 $ sudo apt install can-utils
 ```
 
-Then, use the commands below to start the slcan daemon
+Then use the commands below to start the slcan daemon
 ```
-sudo slcand -S 115200 -s 6 -o /dev/ttyUSB0 can0
+$ sudo slcand -S 115200 -s 6 -o /dev/ttyUSB0 can0
 ```
 - `-S` : Serial baud rate. Put the same value as `SERIAL_SPEED`
 - `-s` : CAN speed. Check the [Lawicel documentation](https://www.canusb.com/docs/can232_v3.pdf) to choose the speed you want
